@@ -9,7 +9,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -69,6 +68,13 @@ public class HelloController {
     }
     private void showError() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("error.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    private void showErrorParsing() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("errorParsing.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -222,10 +228,10 @@ public class HelloController {
                         }
 
                     } else {
-                        System.out.println("Ошибка при получении информации о канале: " + channelId);
+                        showErrorParsing();
                     }
                 } else {
-                    System.out.println("Ошибка при получении channelId канала");
+                    showErrorParsing();
                 }
             }
 
